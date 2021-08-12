@@ -39,4 +39,5 @@ articulos["aseo"] = aseo[aseoIndex]
 print("Se añadio '{}' al diccionario\n\n".format(aseo[aseoIndex]))
 
 
-print(articulos)
+print("'{}' compro de granos '{}', de viveres '{}' y de aseo '{}'".format(articulos["nombre"], articulos["granos"],
+                                                                        articulos["viveres"], articulos["aseo"]))
