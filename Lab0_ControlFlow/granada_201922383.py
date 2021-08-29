@@ -1,7 +1,4 @@
 # Por Diego Granada 201922383
-
-# Por favor tener cuidado con los imports si estan corriendo solo selecciones del codigo. No omitir los imports
-
 ## Pregunta 1
 
 
