@@ -51,6 +51,14 @@ print(f"El ultimo y primer elemento son {'iguales' if areEndsEqual(num_list) els
 
 short_list = input("Ingrese lista de 3 numeros (Lista A): ").split(",")
 long_list = input("Ingrese segunda lista (Lista B): ").split(",")
+contador = 0
+for i in range(len(long_list)-2):
+    if long_list[i:i+3] == short_list:
+        contador += 1
+print(f"La lista A aparece  {contador} veces en la lista B")
+
+
+##
 if len(short_list) != 3:
     raise Exception("No tiene 3 elementos la lista A")
 if len(long_list) < 3:
@@ -115,3 +123,18 @@ print(f'{meses[index]} tiene {numero_dias} dias')
 ## Pregunta 8
 
 num = int(input("Ingrese el numero"))
+
+for i in range(1,10+1):
+    print(f"{num}*{i} = {num*i}")
+
+## Pregunta 9
+opcion = int(input("Para convertir de °C a °F (oprima 1). Para convertir de °F a °C (oprima 2): "))
+
+if opcion == 1:
+    temp = int(input("Ingrese °C: "))
+    conversion = (temp * 9 / 5) + 32
+    print(f"{temp}°C equivale a {conversion}°F")
+elif opcion == 2:
+    temp = int(input("Ingrese °F: "))
+    conversion = 5 * ((temp-32)/9)
+    print(f"{temp}°F equivale a {conversion}°C")
