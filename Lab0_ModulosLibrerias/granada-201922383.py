@@ -1,4 +1,6 @@
 ## Ejercicio 1
+import math
+
 import numpy as np
 
 def multArreglo(arreglo, mult):
@@ -45,27 +47,32 @@ print(f"El numero {numero} {isPrime}es primo")
 
 ## Ejercicio 4
 
-cadena = input("Por favor escriba la cadena de caracteres que se quiere revisar si es un palindromo: ")
-result = None
-if len(cadena) % 2 == 0:
-    result = "SI" if cadena[:len(cadena) // 2] == cadena[:len(cadena) // 2 - 1:-1] else "NO"
-else:
-    result = "SI" if cadena[:len(cadena) // 2] == cadena[:len(cadena) // 2:-1] else "NO"
+def isPalindrome(cadena):
+    result = None
+    if len(cadena) % 2 == 0:
+        result = True if cadena[:len(cadena) // 2] == cadena[:len(cadena) // 2 - 1:-1] else False
+    else:
+        result = True if cadena[:len(cadena) // 2] == cadena[:len(cadena) // 2:-1] else False
+    return result
 
-print(f'La cadena {cadena} {result} es un palindromo')
+cadena = input("Por favor escriba la cadena de caracteres que se quiere revisar si es un palindromo: ")
+print(f'La cadena {cadena} {"SI" if isPalindrome(cadena) else "NO"} es un palindromo')
 
 ## Ejercicio 5
 import numpy as np
 
+def isFibonacci(numero):
+    nums = [0, 1]
+    i = nums[1]
+    while i < numero:
+        i = np.sum(nums[-2:])
+        nums.append(i)
+    return i == numero
+
 numero = int(input("Por favor digite el numero al que se le quiere revisar si es un numero de la serie Fibonacci: "))
 
-nums = [0, 1]
-i = nums[1]
-while i < numero:
-    i = np.sum(nums[-2:])
-    nums.append(i)
 
-print(f'El numero {numero} {"SI" if i == numero else "NO"} es un numero fibonacci')
+print(f'El numero {numero} {"SI" if isFibonacci(numero) else "NO"} es un numero fibonacci')
 
 ## Ejercicio 6
 import numpy as np
@@ -99,12 +106,16 @@ plt.show()
 ## Ejercicio 8
 import numpy as np
 
+def findRoots(a, b, c):
+    return [(-b + (b**2 - 4*a*c)**0.5)/(2*a), (-b - (b**2 - 4*a*c)**0.5)/(2*a)]
+
+
 print("Se va a encontrar las raices de un polinomio ax^2 + bx + c")
 valores = []
 for i in ['a', 'b', 'c']:
     valores.append(float(input(f'Cual es el valor de {i}?')))
 
-roots = np.roots(valores)
+roots = findRoots(valores[0], valores[1], valores[2])
 print(f'Las raices son: x ∈ {roots}')
 
 ## Ejercicio 9
@@ -128,21 +139,28 @@ plt.plot(t_axis, disp_axis)
 plt.show()
 
 ## Ejercicio 11
+def convertirSegundos(secs):
+    amounts = [86400, 3600, 60, 1]
+    results = []
+    for interval in amounts:
+        results.append(secs // interval)
+        secs = secs % interval
+    return results
+
 secs_input = float(input("Cual es el numero de segundos que quieres convertir?"))
 amounts = [86400, 3600, 60, 1]
-results = []
-for interval in amounts:
-    results.append(secs_input // interval)
-    secs_input = secs_input % interval
+results = convertirSegundos(secs_input)
 
 print('El resultado son {0} dias, {1} horas, {2} minutos y {3} segundos.'.format(*results))
 
 ## Ejercicio 12
-from datetime import datetime, date
+from datetime import datetime
+
+def diferenciaFechasEnDias(inicial, final):
+    return (final-inicial).days
 
 inicial = datetime.strptime(input("Cual es la fecha inicial?"), "%Y-%m-%d")
 final = datetime.strptime(input("Cual es la fecha final?"), "%Y-%m-%d")
 
-diferencia = final - inicial
 
-print(f'El numero de dias de diferencia es {diferencia.days} dias')
+print(f'El numero de dias de diferencia es {diferenciaFechasEnDias(inicial, final)} dias')
