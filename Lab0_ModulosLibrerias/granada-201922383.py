@@ -1,7 +1,6 @@
 ## Ejercicio 1
-import math
-
 import numpy as np
+
 
 def multArreglo(arreglo, mult):
     return mult * arreglo
@@ -21,9 +20,11 @@ def fact(num):
         factorial *= i
     return factorial
 
+
 num = int(input("Por favor digite el numero al que se le quiere buscar el factorial: "))
 
 print(f'{num}! = {fact(num)}')
+
 
 ## Ejercicio 3
 
@@ -45,6 +46,7 @@ numero = int(input("Por favor digite el numero al que se le quiere revisar si es
 isPrime = 'si ' if isPrime(numero) else 'no '
 print(f"El numero {numero} {isPrime}es primo")
 
+
 ## Ejercicio 4
 
 def isPalindrome(cadena):
@@ -55,12 +57,12 @@ def isPalindrome(cadena):
         result = True if cadena[:len(cadena) // 2] == cadena[:len(cadena) // 2:-1] else False
     return result
 
+
 cadena = input("Por favor escriba la cadena de caracteres que se quiere revisar si es un palindromo: ")
 print(f'La cadena {cadena} {"SI" if isPalindrome(cadena) else "NO"} es un palindromo')
 
-## Ejercicio 5
-import numpy as np
 
+## Ejercicio 5
 def isFibonacci(numero):
     nums = [0, 1]
     i = nums[1]
@@ -69,8 +71,8 @@ def isFibonacci(numero):
         nums.append(i)
     return i == numero
 
-numero = int(input("Por favor digite el numero al que se le quiere revisar si es un numero de la serie Fibonacci: "))
 
+numero = int(input("Por favor digite el numero al que se le quiere revisar si es un numero de la serie Fibonacci: "))
 
 print(f'El numero {numero} {"SI" if isFibonacci(numero) else "NO"} es un numero fibonacci')
 
@@ -103,11 +105,10 @@ for i in [10, 20, 30, 50]:
 plt.tight_layout()
 plt.show()
 
-## Ejercicio 8
-import numpy as np
 
+## Ejercicio 8
 def findRoots(a, b, c):
-    return [(-b + (b**2 - 4*a*c)**0.5)/(2*a), (-b - (b**2 - 4*a*c)**0.5)/(2*a)]
+    return [(-b + (b ** 2 - 4 * a * c) ** 0.5) / (2 * a), (-b - (b ** 2 - 4 * a * c) ** 0.5) / (2 * a)]
 
 
 print("Se va a encontrar las raices de un polinomio ax^2 + bx + c")
@@ -138,6 +139,7 @@ plt.ylabel('x displacement (m)')
 plt.plot(t_axis, disp_axis)
 plt.show()
 
+
 ## Ejercicio 11
 def convertirSegundos(secs):
     amounts = [86400, 3600, 60, 1]
@@ -146,6 +148,7 @@ def convertirSegundos(secs):
         results.append(secs // interval)
         secs = secs % interval
     return results
+
 
 secs_input = float(input("Cual es el numero de segundos que quieres convertir?"))
 amounts = [86400, 3600, 60, 1]
@@ -156,11 +159,32 @@ print('El resultado son {0} dias, {1} horas, {2} minutos y {3} segundos.'.format
 ## Ejercicio 12
 from datetime import datetime
 
+
 def diferenciaFechasEnDias(inicial, final):
-    return (final-inicial).days
+    return (final - inicial).days
+
 
 inicial = datetime.strptime(input("Cual es la fecha inicial?"), "%Y-%m-%d")
 final = datetime.strptime(input("Cual es la fecha final?"), "%Y-%m-%d")
 
-
 print(f'El numero de dias de diferencia es {diferenciaFechasEnDias(inicial, final)} dias')
+
+
+## Ejercicio 13
+def contarValorEnMatriz(matriz, valor):
+    count = 0
+    for row in matriz:
+        for elem in row:
+            if elem == valor:
+                count += 1
+    return count
+
+
+# importo numpy solo para generar una matriz aleatoria,
+#   no es necesario para la solucion
+import numpy as np
+
+mat = np.random.randint(0, 6, (5, 5))
+print(mat)
+
+print(contarValorEnMatriz(mat, 3))
