@@ -121,8 +121,27 @@ print(f'Las raices son: x ∈ {roots}')
 
 ## Ejercicio 9
 
-# TODO Hacer ejercicio 9
+longitudes = []
+long1 = float(input("Cual es la primera longitud del triangulo? "))
+long2 = float(input("Cual es la segunda longitud del triangulo? "))
+long3 = float(input("Cual es la tercera longitud del triangulo? "))
+longitudes.append(long1)
+longitudes.append(long2)
+longitudes.append(long3)
+longitudes.sort()
 
+esRectangulo = (longitudes[0]**2 + longitudes[1]**2 == longitudes[2]**2)
+
+longitudesSet = set(longitudes)
+
+if len(longitudesSet) == 3:
+    print("El triangulo es un triangulo escaleno.")
+elif len(longitudesSet) == 2:
+    print("El triangulo es un triangulo isosceles.")
+elif len(longitudesSet) == 1:
+    print("El triangulo es un triangulo equilatero.")
+
+print(f"Ademas, el triangulo {'SI' if esRectangulo else 'NO'} es un triangulo cuadrado.")
 ## Ejercicio 10
 import numpy as np
 import matplotlib.pyplot as plt
