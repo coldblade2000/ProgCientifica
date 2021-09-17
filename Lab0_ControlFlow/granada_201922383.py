@@ -138,3 +138,24 @@ elif opcion == 2:
     temp = int(input("Ingrese °F: "))
     conversion = 5 * ((temp-32)/9)
     print(f"{temp}°F equivale a {conversion}°C")
+
+##
+import numpy as np
+import matplotlib.pyplot as plt
+x = np.linspace(-1, 2, 10000)
+
+y = np.piecewise(x, [x < 0,  (0 <= x) & (x < 1), (1 <= x) & (x <= 1.5), x > 1.5,], [0, lambda x: x, 1, 0])
+plt.plot(x, y)
+plt.title('Funcion de densidad de probabilidad')
+plt.ylabel('Densidad de probabilidad')
+plt.show()
+##
+import numpy as np
+import matplotlib.pyplot as plt
+x = np.linspace(-1, 2, 10000)
+
+y = np.piecewise(x, [x < 0,  (0 <= x) & (x < 1), (1 <= x) & (x <= 1.5), x > 1.5,], [0, lambda x: x**2 / 2, lambda x: x -0.5, 1])
+plt.plot(x, y)
+plt.title('Funcion de densidad de probabilidad acumulada')
+plt.ylabel('Densidad de probabilidad acumulada')
+plt.show()

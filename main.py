@@ -23,3 +23,10 @@ print(np_array)
 np.zeros((4,2))
 np.ones((5,2))
 ##
+n= 17
+bitfield = list(bin(n)[2:])
+
+bitfield[-1] = int(bitfield[-1]) + 1
+
+print(bitfield)
+
