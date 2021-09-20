@@ -46,10 +46,9 @@ else:
 # convertido en su correspondiente representación binaria de punto flotante de 32-
 # bits.
 # Importante: No se puede usar la función reverse.
-import math
 numero: float = float(input("CUal es el numero positivo real al que le quieres encontrar la representacion de float? "))
 signBit: int = 1 if numero < 0 else 0
-numeroTemp = numero if numero < 0 else -1 * numero
+numeroTemp = numero if numero >= 0 else -1 * numero
 numDivs: int = 0
 
 if numeroTemp >= 1:
@@ -61,30 +60,26 @@ elif numeroTemp < 1:
         numeroTemp *= 2
         numDivs -= 1
 
-exponent = numDivs - 127
-exponentBin: str = bin(exponent)[2:]
-#exponentBin: str = bin((((~exponent) & (2**8 - 1)) + 1) ^ 2**8)[2:]
-
-print("Exponent: ", exponent)
-print("NumeroTemp: ", numeroTemp)
-print("numDivs: ", numDivs)
+exponent: int = numDivs + 127
+exponentBin: str = bin(exponent)[2:].rjust(8, '0')
 binDecimal = ""
 binDecimalTemp = numeroTemp - 1
-while binDecimalTemp != 1 and len(binDecimal) < 23:
+while binDecimalTemp != 1 and len(binDecimal) < 24:
     binDecimalTemp *= 2
-    binDecimal = binDecimal + str(binDecimalTemp//1)
+    binDecimal = binDecimal + str(int(binDecimalTemp//1))
     if binDecimalTemp > 1:
         binDecimalTemp -= 1
 
-if len (binDecimal) < 23:
+if len (binDecimal) < 24:
     binDecimal = binDecimal.ljust(23, "0")
+else:
+    if binDecimal[23] == "1":
+        binDecimal = str(bin(int(binDecimal[:25], 2) + 1)[2:])[0:23]
+    else:
+        binDecimal = binDecimal[0:23]
 finalBits = str(signBit) + exponentBin + binDecimal
 
 print("Final result:", finalBits)
-
-print(str(numeroTemp)[2:25])
-mantissa = bin(~int(str(numeroTemp)[2:25]) & (2**23 - 1))[2:]
-print("Mantissa: ", mantissa)
 ##
 # Escribir un programa en Python donde el usuario ingrese un número real y éste sea
 # convertido en su correspondiente representación binaria de punto flotante de 62-
