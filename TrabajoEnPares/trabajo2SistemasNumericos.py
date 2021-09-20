@@ -42,15 +42,14 @@ else:
 # Importante: No se puede usar la función reverse.
 ##
 
-
 # Escribir un programa en Python donde el usuario ingrese un número real y éste sea
 # convertido en su correspondiente representación binaria de punto flotante de 32-
 # bits.
 # Importante: No se puede usar la función reverse.
 import math
 numero: float = float(input("CUal es el numero positivo real al que le quieres encontrar la representacion de float? "))
-signBit: bool = numero >= 0
-numeroTemp = numero if signBit else -1 * numero
+signBit: int = 1 if numero < 0 else 0
+numeroTemp = numero if numero < 0 else -1 * numero
 numDivs: int = 0
 
 if numeroTemp >= 1:
@@ -63,9 +62,25 @@ elif numeroTemp < 1:
         numDivs -= 1
 
 exponent = numDivs - 127
+exponentBin: str = bin(exponent)[2:]
+#exponentBin: str = bin((((~exponent) & (2**8 - 1)) + 1) ^ 2**8)[2:]
+
 print("Exponent: ", exponent)
 print("NumeroTemp: ", numeroTemp)
 print("numDivs: ", numDivs)
+binDecimal = ""
+binDecimalTemp = numeroTemp - 1
+while binDecimalTemp != 1 and len(binDecimal) < 23:
+    binDecimalTemp *= 2
+    binDecimal = binDecimal + str(binDecimalTemp//1)
+    if binDecimalTemp > 1:
+        binDecimalTemp -= 1
+
+if len (binDecimal) < 23:
+    binDecimal = binDecimal.ljust(23, "0")
+finalBits = str(signBit) + exponentBin + binDecimal
+
+print("Final result:", finalBits)
 
 print(str(numeroTemp)[2:25])
 mantissa = bin(~int(str(numeroTemp)[2:25]) & (2**23 - 1))[2:]
@@ -77,3 +92,6 @@ print("Mantissa: ", mantissa)
 # Importante: No se puede usar la función reverse.
 9173736572265625
 9173736118164062
+
+11010011110010110100001
+01000101111101010110110010000000
