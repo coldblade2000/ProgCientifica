@@ -24,26 +24,15 @@ else:
 # número de bits no es suficiente para representarlo, el programa debe mostrar un
 # mensaje de error. Importante: No se puede usar la función reverse.
 # Importante: No se puede usar la función reverse.
-numero = int(input("CUal es el numero positivo al que le quieres encontrar complemento 2? "))
-bits = int(input("CUal es el numero de bits que quieres usar? "))
-if numero // 2**bits > 1:
+numero: int = int(input("CUal es el numero positivo al que le quieres encontrar complemento 2? "))
+bits: int = int(input("CUal es el numero de bits que quieres usar? "))
+if numero / 2**bits >= 1:
     print("Error: no hay suficientes bits para representar esto")
-rep_binaria = bin(numero)[2:]
+else:
+    inverso: int = ((~numero) & (2**bits - 1)) + 1
+    print("El complemento de dos es: ", bin(inverso)[2:])
+##
 
-bitfield = list(rep_binaria)
-for i in range (0, bits - len(bitfield)):
-    bitfield.insert(0 ,0)
-print(bitfield)
-for i in range(0,len(bitfield)):
-    bitfield[i] = 1 if bitfield[i] == '0' else 0
-print(bitfield)
-for i in range(len(bitfield)-1, 0, -1):
-    if bitfield[i] == 0:
-        bitfield[i] = 1
-        for j in range(i, len(bitfield)):
-            bitfield[j] = 0
-        break
-print(bitfield, "")
 ##
 # Escribir un programa en Python donde el usuario ingrese un número entero positivo
 # o negativo, el número de bits, y éste sea convertido en su correspondiente
@@ -52,12 +41,39 @@ print(bitfield, "")
 # de error.
 # Importante: No se puede usar la función reverse.
 ##
+
+
 # Escribir un programa en Python donde el usuario ingrese un número real y éste sea
 # convertido en su correspondiente representación binaria de punto flotante de 32-
 # bits.
 # Importante: No se puede usar la función reverse.
+import math
+numero: float = float(input("CUal es el numero positivo real al que le quieres encontrar la representacion de float? "))
+signBit: bool = numero >= 0
+numeroTemp = numero if signBit else -1 * numero
+numDivs: int = 0
+
+if numeroTemp >= 1:
+    while numeroTemp >= 2:
+        numeroTemp /= 2
+        numDivs += 1
+elif numeroTemp < 1:
+    while numeroTemp < 1:
+        numeroTemp *= 2
+        numDivs -= 1
+
+exponent = numDivs - 127
+print("Exponent: ", exponent)
+print("NumeroTemp: ", numeroTemp)
+print("numDivs: ", numDivs)
+
+print(str(numeroTemp)[2:25])
+mantissa = bin(~int(str(numeroTemp)[2:25]) & (2**23 - 1))[2:]
+print("Mantissa: ", mantissa)
 ##
 # Escribir un programa en Python donde el usuario ingrese un número real y éste sea
 # convertido en su correspondiente representación binaria de punto flotante de 62-
 # bits.
 # Importante: No se puede usar la función reverse.
+9173736572265625
+9173736118164062
