@@ -21,12 +21,12 @@ elif numeroTemp < 1:
         numDivs -= 1
 
 exponent: int = numDivs + 127
-exponentBin: str = bin(exponent)[2:]
+exponentBin: str = bin(exponent)[2:].rjust(8, '0')
 # exponentBin: str = bin((((~exponent) & (2**7 - 1)) + 1) ^ 2**7)[-8]
+# print("Exponent: ", exponent)
+# print("NumeroTemp: ", numeroTemp)
+# print("numDivs: ", numDivs)
 
-print("Exponent: ", exponent)
-print("NumeroTemp: ", numeroTemp)
-print("numDivs: ", numDivs)
 binDecimal = ""
 binDecimalTemp = numeroTemp - 1
 while binDecimalTemp != 1 and len(binDecimal) < 24:
@@ -40,10 +40,19 @@ if len (binDecimal) < 24:
 else:
     if binDecimal[23] == "1":
         binDecimal = str(bin(int(binDecimal[:25], 2) + 1)[2:])[0:23]
+    else:
+        binDecimal = binDecimal[0:23]
 finalBits = str(signBit) + exponentBin + binDecimal
 
 print("Final result:", finalBits)
 
 #0 10001011 11101010110110001111111
 #0 01111100 01000101001000111111011
-#0 11111000 10001010010001111110110
+
+#00111110001000101001000111111011
+#00111110001000101001000111111011
+
+#0  1111100 010001010010001111110110
+
+#01000000010010010000111111011011
+#01000000010010010000111111011011
