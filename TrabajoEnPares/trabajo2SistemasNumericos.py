@@ -3,6 +3,8 @@
 # positivo (sin signo, se incluye el cero) y éste sea convertido a binario. Si el número
 # no es entero o positivo, se debe mostrar un mensaje de error.
 # Importante: No se puede usar la función reverse
+
+
 def decimal(num):
 
     if num > 1:
@@ -40,6 +42,7 @@ else:
 # de bits no es suficiente para representarlo, el programa debe mostrar un mensaje
 # de error.
 # Importante: No se puede usar la función reverse.
+
 ##
 
 # Escribir un programa en Python donde el usuario ingrese un número real y éste sea
@@ -74,19 +77,15 @@ if len (binDecimal) < 24:
     binDecimal = binDecimal.ljust(23, "0")
 else:
     if binDecimal[23] == "1":
-        binDecimal = str(bin(int(binDecimal[:25], 2) + 1)[2:])[0:23]
+        binDecimal = str(bin((int(binDecimal[:25], 2) + 1)//2)[2:]).rjust(23,'0')
     else:
         binDecimal = binDecimal[0:23]
 finalBits = str(signBit) + exponentBin + binDecimal
 
-print("Final result:", finalBits)
+print("Resultado final:", finalBits)
 ##
 # Escribir un programa en Python donde el usuario ingrese un número real y éste sea
 # convertido en su correspondiente representación binaria de punto flotante de 62-
 # bits.
 # Importante: No se puede usar la función reverse.
-9173736572265625
-9173736118164062
-
-11010011110010110100001
-01000101111101010110110010000000
+#73704231463.04758
