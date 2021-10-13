@@ -15,11 +15,18 @@ def isFib(buscado, nums=None, m=1):
 
 ## preg 2 numeros cuadrados
 
-def isQuad(buscado, m = 1):
+def isQuad(buscado, m = 0):
     if buscado == m*m:
         print(f"El numero {buscado} si esta en la secuencia cuadrada")
+        return True
     elif buscado < m*m:
         print(f"El numero {buscado} NO esta en la secuencia cuadrada")
+        return False
     else:
-        isQuad(buscado, m+1)
+        return isQuad(buscado, m+1)
 
+# nums = []
+# for i in range(0,100005):
+#     if isQuad(i):
+#         nums.append(i)
+# print(nums)
