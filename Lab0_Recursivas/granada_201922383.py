@@ -13,6 +13,9 @@ def isFib(buscado, nums=None, m=1):
             newNum = nums[-1] + nums[-2]
             isFib(buscado, nums + [newNum], m + 1)
 
+num = int(input("Ingrese un numero que quiere revisar si es un numero de la serie fibonacci: "))
+isFib(num)
+
 ## preg 2 numeros cuadrados
 
 def isQuad(buscado, m = 0):
@@ -25,6 +28,8 @@ def isQuad(buscado, m = 0):
     else:
         return isQuad(buscado, m+1)
 
+num = int(input("Ingrese un numero que quiere revisar si es un numero de la serie cuadrada: "))
+isQuad(num)
 # nums = []
 # for i in range(0,100005):
 #     if isQuad(i):
