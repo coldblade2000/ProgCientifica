@@ -13,4 +13,13 @@ def isFib(buscado, nums=None, m=1):
             newNum = nums[-1] + nums[-2]
             isFib(buscado, nums + [newNum], m + 1)
 
+## preg 2 numeros cuadrados
+
+def isQuad(buscado, m = 1):
+    if buscado == m*m:
+        print(f"El numero {buscado} si esta en la secuencia cuadrada")
+    elif buscado < m*m:
+        print(f"El numero {buscado} NO esta en la secuencia cuadrada")
+    else:
+        isQuad(buscado, m+1)
 
