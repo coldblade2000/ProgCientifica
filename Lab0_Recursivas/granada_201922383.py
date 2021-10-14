@@ -35,3 +35,24 @@ isQuad(num)
 #     if isQuad(i):
 #         nums.append(i)
 # print(nums)
+
+## preg 3 e^x
+
+def fact(x):
+    if x == 0:
+        return 1
+    else:
+        return x * fact(x-1)
+
+def ex(x, terminos=1, n=0):
+    if n>terminos:
+        return 0
+    else:
+        return x**n / fact(n) + ex(x, terminos, n+1)
+
+x = float(input("Ingrese x para calcular e^x: "))
+terminos = int(input("Ingrese el numero de terminos deseado: "))
+ex(x, terminos)
+
+# for i in range(0,25):
+#     print(f'{i}: e^x = {ex(x, i)}')
