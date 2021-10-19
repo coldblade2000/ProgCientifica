@@ -56,3 +56,7 @@ ex(x, terminos)
 
 # for i in range(0,25):
 #     print(f'{i}: e^x = {ex(x, i)}')
+
+## preg 4
+import matplotlib.pyplot as plt
+
