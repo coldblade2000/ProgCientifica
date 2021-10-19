@@ -1,4 +1,6 @@
 ## preg 1 fibonacci
+import random
+
 
 def isFib(buscado, nums=None, m=1):
     if nums is None:
@@ -60,3 +62,25 @@ ex(x, terminos)
 ## preg 4
 import matplotlib.pyplot as plt
 
+## preg 9
+import struct as st
+import random
+nums = []
+
+for i in range(0, 1000):
+    nums.append(random.randint(-10, 10))
+
+file = open("FileBinInt16.bin", "wb+")
+packed = st.pack("h"*len(nums), *nums)
+file.write(packed)
+file.close()
+
+
+## preg 10
+
+import struct as st
+
+file = open("FileBinInt16.bin", "rb")
+content = file.read()
+unpacked = st.unpack("h"*1000, content)
+print(unpacked)
