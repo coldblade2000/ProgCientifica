@@ -79,8 +79,53 @@ file.close()
 ## preg 10
 
 import struct as st
-
+import matplotlib.pyplot as plt
+import numpy as np
 file = open("FileBinInt16.bin", "rb")
 content = file.read()
 unpacked = st.unpack("h"*1000, content)
+npArray = np.array(unpacked)
+plt.hist(npArray, bins=30)
+plt.show()
 print(unpacked)
+
+## preg 11
+import struct as st
+import random
+nums = []
+
+for i in range(0, 1000):
+    nums.append(random.random()*2-1)
+
+file = open("FileBinDouble.bin", "wb+")
+packed = st.pack("d"*len(nums), *nums)
+file.write(packed)
+file.close()
+
+
+## preg 12
+
+import struct as st
+import matplotlib.pyplot as plt
+import numpy as np
+file = open("FileBinDouble.bin", "rb")
+content = file.read()
+unpacked = st.unpack("d"*1000, content)
+npArray = np.array(unpacked)
+plt.hist(npArray, bins=30)
+plt.show()
+print(unpacked)
+
+## preg 13
+
+
+import struct as st
+import matplotlib.pyplot as plt
+import numpy as np
+file = open("File-214.bin", "rb")
+content = file.read()
+unpacked = st.unpack("I"*(len(content)//4), content)
+npArray = np.array(unpacked)
+average = np.round(npArray.mean(), decimals=4)
+print(f"El promedio de los numeros del archivo es {average}")
+print(f"EL promedio del archivo { 'SI' if average == 64023.8381 else 'NO'} es correcto.")
