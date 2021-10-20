@@ -1,3 +1,7 @@
+#Por:
+# Diego Granada   201922383
+# Catalina Tirado 201923240
+
 ## preg 1 fibonacci
 def isFib(buscado, nums=None, m=1):
     if nums is None:
@@ -194,6 +198,7 @@ plt.show()
 
 ##7 (USANDO 4)
 import math as mt
+import numpy as np
 def factorial(x):
     if x == 1:
         return 1
@@ -217,14 +222,14 @@ for i in range(10, 100, 10):
 
 # 7A VALOR ESTIMADO
 import matplotlib.pyplot as plt
-print(numeros7)
-print(lista7)
+
 plt.figure()  # obligatoriamente crea una nueva ventana # no cambia la figura que haya creado anteriormente
-plt.plot(numeros7, lista7, "go--", linewidth=2, markersize=12)  # o:marcadores en forma de circulo, b:azul
+plt.plot(np.array(numeros7), np.array(lista7), "go--", linewidth=2, markersize=12)  # o:marcadores en forma de circulo, b:azul
 plt.title("VALOR ESTIMADO")
 plt.xlabel("x axis caption")
 plt.ylabel("y axis caption")
 plt.show()
+##
 # 7B ERROR ABSOLUTO
 listag = []
 for i in range(len(lista7)):
@@ -240,7 +245,7 @@ plt.plot(numeros7, listag, "go--", linewidth=2, markersize=12)  # o:marcadores e
 plt.title("ERROR ABSOLUTO")
 plt.xlabel("x axis caption")
 plt.ylabel("y axis caption")
-
+plt.show()
 # 7C ERROR RELATIVO
 listag = []
 for i in range(len(lista7)):
