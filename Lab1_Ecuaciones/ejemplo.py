@@ -1,8 +1,8 @@
 import numpy as np
 
 N = 4
-A = np.random.randint(-10, 10, (N, N))
-b = np.random.randint(-10, 10, (N, 1))
+A = np.random.rand(N, N)
+b = np.random.rand(N, 1)
 
 
 def GaussJordanMet(A, b):
