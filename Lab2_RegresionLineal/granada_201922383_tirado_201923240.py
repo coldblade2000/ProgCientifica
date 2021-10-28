@@ -32,4 +32,4 @@ def solveMatrix(A, b):
 mat = np.random.rand(5, 5)* 100 -50
 b = np.random.rand(5,1)* 100 -50
 print(solveMatrix(mat, b))
-np.linalg()
+print(np.linalg.solve(mat, b))
