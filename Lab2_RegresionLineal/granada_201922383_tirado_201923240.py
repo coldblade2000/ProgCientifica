@@ -20,13 +20,16 @@ def solveMatrix(A, b):
 
         for ii in range(i+1, N):
             Au[ii, :] = Au[ii, :] - (Au[i, :] * Au[ii, i])
-    print(Au)
-
-
+    AuCp = Au
+    for i in range(N-1, 0, -1):
+        print(i)
+        for j in range(i-1, -1, -1):
+            Au[j,:] = Au[j,:] - Au[i,:]*Au[j, i]
 
     return Au[:, N]
 
 
 mat = np.random.rand(5, 5)* 100 -50
 b = np.random.rand(5,1)* 100 -50
-solveMatrix(mat, b)
+print(solveMatrix(mat, b))
+np.linalg()
