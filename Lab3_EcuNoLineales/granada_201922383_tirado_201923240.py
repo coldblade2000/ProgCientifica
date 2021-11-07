@@ -1,7 +1,4 @@
 ##pregunta 1 biseccion
-import numpy as np
-
-
 def f1(x):
     return -(np.sqrt(3.0 * x) ** (2.0 / 5.0)) + (x ** 3.0) * np.cos(3.0 * x) + 4.0 * (x ** 2) - 7
 
@@ -9,6 +6,7 @@ def f1(x):
 def biseccion(fx, intv, tolx, tolf):
     valorRaizPasado = 0
     raizCandidata = (intv[0] + intv[1]) / 2
+    raices = [raizCandidata]
     iteraciones = 0
     while abs(valorRaizPasado - raizCandidata) > tolx and abs(fx(raizCandidata)) > tolf:
         if fx(intv[0]) * fx(raizCandidata) <= 0:
@@ -18,11 +16,15 @@ def biseccion(fx, intv, tolx, tolf):
         valorRaizPasado = raizCandidata
         raizCandidata = (intv[0] + intv[1]) / 2
         iteraciones += 1
+        raices.append(raizCandidata)
 
-    return raizCandidata, iteraciones
+    return raices, iteraciones
 
 
-print(biseccion(f1, [0, 3], 1e-5, 1e-5))
+results = biseccion(f1, [0, 3], 1e-5, 1e-5)
+print(f'Raiz encontrada: {results[0][-1]}')
+print(f'Iteraciones: {results[1]}')
+print(f'Raices: {results[0]}')
 
 ## pregunta 2 falsa posicion
 
@@ -36,6 +38,7 @@ def f1(x):
 def falsaPosicion(fx, intv, tolx, tolf):
     valorRaizPasado = 0
     raizCandidata = intv[1] - (f1(intv[1]) * (intv[1] - intv[0]) / (f1(intv[1]) - f1(intv[0])))
+    raices = [raizCandidata]
     iteraciones = 0
     while abs(valorRaizPasado - raizCandidata) > tolx and abs(fx(raizCandidata)) > tolf:
         if fx(intv[0]) * fx(raizCandidata) <= 0:
@@ -45,50 +48,14 @@ def falsaPosicion(fx, intv, tolx, tolf):
         valorRaizPasado = raizCandidata
         raizCandidata = intv[1] - (f1(intv[1]) * (intv[1] - intv[0]) / (f1(intv[1]) - f1(intv[0])))
         iteraciones += 1
+        raices.append(raizCandidata)
 
-    return raizCandidata, iteraciones
+    return raices, iteraciones
 
-
-print(falsaPosicion(f1, [0, 3], 1e-5, 1e-5))
-
-##Definimos un punto inicial cercano a la raíz
-# x1=2.0
-x0 = 1.9
-x1 = 1.8
-# Definimos ahora los valores de Tolerancia tanto para x como f
-Tolx = 10 ** -10
-Tolf = Tolx
-# Definimos una variable para ir almacenando el valor de la raíz
-# en la iteración anterior
-x2prev = x1
-# Definimos una variable para ir contando el número de iteraciones
-# totales
-iter = 0
-# Definimos un arreglo para ir guardando los valores de las
-# raíces candidatas, obtenidas en cada iteración
-xr_iter = np.array([])
-# Creamos ahora un proceso iterativo para ir hallando de manera
-# progresiva la raíz buscada
-while 1:
-    # Sumamos 1 al número de iteraciones
-    iter += 1
-    # Hallamos la raíz candidata haciendo:
-    # x2 = x1 - (f1(x1) / df1(x1))
-    x2 = x1 - (f1(x1) * (x1 - x0) / (f1(x1) - f1(x0)))
-    # Adicionamos la raíz hallada al arreglo de raíces obtenidas en cada iteración
-    xr_iter = np.append(xr_iter, x2)
-    # Evaluamos el criterio de Tolerancia en x
-    if np.abs(x2 - x2prev) <= Tolx:
-        break
-    # Evaluamos el criterio de Tolerancia en f
-    if np.abs(f1(x2)) <= Tolf:
-        break
-    x0 = x1
-    # Actualizamos x1 según el valor de x2
-    x1 = x2
-    # Actualizamos el valor de la raíz en la iteración anterior
-    x2prev = x2
-
+results = falsaPosicion(f1, [0, 3], 1e-5, 1e-5)
+print(f'Raiz encontrada: {results[0][-1]}')
+print(f'Iteraciones: {results[1]}')
+print(f'Raices: {results[0]}')
 
 ##punto fijo
 def g1:
@@ -115,7 +82,90 @@ print("Punto fijo")
 print("x2= ", x2)
 print("iteraciones= ", iter_num)
 
+##pergunta 4 newton
+from sympy import *
 
-##pergunta 3 newton
+x = symbols('x')
+f1 = (-(3 ** 0.2) * x ** 0.2) + (x ** 3 * cos(3 * x)) + 4 * x ** 2 - 7
 
-def newton(fx, x)
+def newton(fxraw, x1, tolx, tolf, var):
+    raices = []
+    dfxraw = fxraw.diff()
+    fx = lambdify(var, fxraw)
+    dfx = lambdify(var, dfxraw)
+    continuar = True
+    iteraciones = 1
+    x2 = 0
+    while continuar:
+        x2 = x1 - (fx(x1) / dfx(x1))
+        continuar = abs(x2 - x1 ) > tolx and abs(fx(x2)) > tolf
+        iteraciones += 1
+        raices.append(x2)
+        x1 = x2
+
+    return raices, iteraciones
+
+
+results = newton(f1, 2, 10e-5, 10e-5, x)
+print(f'Raiz encontrada: {results[0][-1]}')
+print(f'Iteraciones: {results[1]}')
+print(f'Raices: {results[0]}')
+
+
+##pregunta 5 secante
+from sympy import *
+
+x = symbols('x')
+f1 = (-(3 ** 0.2) * x ** 0.2) + (x ** 3 * cos(3 * x)) + 4 * x ** 2 - 7
+
+
+def secante(fxraw, x0, x1, tolx, tolf, var):
+    raices = []
+    fx = lambdify(var, fxraw)
+    continuar = True
+    iteraciones = 1
+    while continuar:
+        x2 = x1 - ((fx(x1) * (x1 - x0)) / (fx(x1) - fx(x0)))
+        raices.append(x2)
+        continuar = (len(raices) == 1 or abs(raices[-1] - raices[-2]) > tolx) and abs(fx(x2)) > tolf
+        iteraciones += 1
+        x0 = x1
+        x1 = x2
+
+    return raices, iteraciones
+
+
+results = secante(f1, 0, 2, 10e-5, 10e-5, x)
+print(f'Raiz encontrada: {results[0][-1]}')
+print(f'Iteraciones: {results[1]}')
+print(f'Raices: {results[0]}')
+
+
+
+##pregunta 6 tasa convergencia
+import math
+import numpy as np
+def tasaConvergencia(estimados: list):
+    tasas = []
+    error = np.array(estimados) - estimados[-1]
+    for i in range(1, len(estimados) - 1):
+        nom = math.log2(abs(error[i]) / abs(error[i+1]))
+        denom = math.log2(abs(error[i-1]) / abs(error[i]))
+        tasas.append(nom/denom)
+    return tasas
+
+
+ejemploRaises = [0.4225964711087131, 0.6333421013447553, 0.8246006398147308, 0.970860763255643, 1.0519361824346374,
+                 1.0844231753682794, 1.0949324941052394, 1.0980250028206051, 1.0989064150371894, 1.099155249191132,
+                 1.099225307064124, 1.0992450162764853, 1.0992505598185094]
+print(tasaConvergencia(ejemploRaises))
+
+
+
+
+
+
+
+
+
+

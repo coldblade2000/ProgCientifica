@@ -34,6 +34,7 @@ def falsaPosicion(fx, T, iters, intv, tolx, tolf):
     valorRaizPasado = 0
     raizCandidata = intv[1] - ((fx(intv[1], T) * (intv[1] - intv[0])) / (fx(intv[1], T) - fx(intv[0], T)))
     iteraciones = 0
+    raises = [raizCandidata]
     print(f'{iteraciones+1} : {truncate(raizCandidata)}')
 
     while abs(valorRaizPasado - raizCandidata) > tolx and abs(fx(raizCandidata, T)) > tolf:
@@ -44,10 +45,11 @@ def falsaPosicion(fx, T, iters, intv, tolx, tolf):
         valorRaizPasado = raizCandidata
         raizCandidata = intv[1] - (fx(intv[1], T) * (intv[1] - intv[0]) / (fx(intv[1], T) - fx(intv[0], T)))
         iteraciones += 1
+        raises.append(raizCandidata)
         if iteraciones + 1 in [1,3,6,11]:
             print(f'{iteraciones + 1} : {truncate(raizCandidata)}')
 
-    return raizCandidata, iteraciones
+    return raizCandidata, iteraciones, raises
 
 
 T = 30
