@@ -58,7 +58,7 @@ print(f'Iteraciones: {results[1]}')
 print(f'Raices: {results[0]}')
 
 ##punto fijo
-def g1:
+def g1(x):
     return ((1.0 / 4.0) * (np.sqrt(3 * x) ** (2.0 / 5.0) - (x ** 3.0) * np.cos(3.0 * x) + 7)) ** (0.5)
 
 x0 = 1
@@ -160,7 +160,63 @@ ejemploRaises = [0.4225964711087131, 0.6333421013447553, 0.8246006398147308, 0.9
                  1.099225307064124, 1.0992450162764853, 1.0992505598185094]
 print(tasaConvergencia(ejemploRaises))
 
+##pregunta 9
+from sympy import *
+import numpy as np
+import matplotlib.pyplot as plt
+R = 4
+nr = symbols("nr")
 
+f1 = ((-1.440 * nr ** -2) + (0.710 / nr) + 0.688 + (0.0636 * nr)) - ((R-1)/(R+1))
+g = (1.440 * (nr ** -2)) - (0.710 / nr) - (0.9364 * nr) - 0.088
+
+g_lambd = lambdify(nr, g, modules=["numpy"])
+
+def newton(fxraw, x1, tolx, tolf, var):
+    raices = []
+    dfxraw = fxraw.diff()
+    fx = lambdify(var, fxraw)
+    dfx = lambdify(var, dfxraw)
+    continuar = True
+    iteraciones = 0
+    x2 = 0
+    while continuar:
+        x2 = x1 - (fx(x1) / dfx(x1))
+        print("Iteracion ", iteraciones)
+        print(f'\tn_r = {x2}')
+        print(f'\tg(n_r) = {g_lambd(x2)}')
+        if iteraciones != 0:
+            print(f'\t|n_ri - n_ri-1| = {np.abs(x2 - raices[-1])}')
+        else:
+            print(f'\t|n_ri - n_ri-1| = N/A')
+        continuar = abs(x2 - x1 ) > tolx and abs(fx(x2)) > tolf
+        iteraciones += 1
+        raices.append(x2)
+        x1 = x2
+
+    return raices, iteraciones
+
+
+f1_lambd = lambdify(nr, f1, modules=["numpy"])
+
+x_axs = np.linspace(-15, 15, 50)
+y_axs = f1_lambd(x_axs)
+plt.ylim([-15, 15])
+plt.plot(x_axs, y_axs)
+plt.show()
+results = newton(f1, 2, 10e-5, 10e-5, nr)
+#print(results)
+realroot = solve(f1, nr)[0]
+print(realroot)
+error = np.array(results[0])
+error = abs(error - realroot)
+x_axs = np.arange(0, len(error), 1)
+y_axs = error
+plt.xlabel("Numero de iteracion")
+plt.ylabel("Tamanio de error")
+plt.xticks(range(0,5))
+plt.plot(x_axs, y_axs)
+plt.show()
 
 
 
