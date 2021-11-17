@@ -60,6 +60,7 @@ print(f'Raices: {results[0]}')
 
 
 ##punto fijo
+import numpy as np
 def g1(x):
     return ((1.0 / 4.0) * (np.sqrt(3 * x) ** (2.0 / 5.0) - (x ** 3.0) * np.cos(3.0 * x) + 7)) ** (0.5)
 
