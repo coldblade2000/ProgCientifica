@@ -2,6 +2,7 @@
 ## PREGUNTA 7
 import numpy as np
 import math
+from sympy import *
 
 h = math.pi / 2
 c = math.pi / 2
@@ -66,7 +67,7 @@ print("f3(xr)", f3(xrf3B))
 # print(f'Raices de f2: {resultsf2[0]}')
 # print(f'Raices de f3: {resultsf3[0]}')
 
-#CHECK
+# CHECK
 # falsa posición de punto 2
 
 def falsaPosicion(fx, intv, tolx, tolf):
@@ -106,3 +107,86 @@ print(f'Iteraciones de f3: {resultsf3[1]}')
 print("f(xr) para f1: ", f1(xrf1))
 print("f(xr) para f2: ", f2(xrf2))
 print("f(xr) para f3: ", f3(xrf3))
+
+# newton
+x = symbols('x')
+f1S = exp(-10 * (x ** 3)) - sqrt(x) + cos(10 * x) + 1
+f2S = sin(4 * x) + x ** (3 / 2) + x ** 2 - 4 + (2 / 3) * x
+f3S = -1 * (6.67 * h + 3.65 * log(x / 5.33) - sqrt(2) * exp(-(c ** 2) - 4.25) - 10.54 * cos(x - 2.2))
+
+f1SL = lambdify(x, f1S)
+f2SL = lambdify(x, f2S)
+f3SL = lambdify(x, f3S)
+
+
+
+def newton(fxraw, x1, tolx, tolf, var):
+    raices = []
+    dfxraw = fxraw.diff()
+    fx = lambdify(var, fxraw)
+    dfx = lambdify(var, dfxraw)
+    continuar = True
+    iteraciones = 1
+    while continuar:
+        x2 = x1 - (fx(x1) / dfx(x1))
+        continuar = abs(x2 - x1) > tolx and abs(fx(x2)) > tolf
+        iteraciones += 1
+        raices.append(x2)
+        x1 = x2
+
+    return raices, iteraciones
+
+
+resultsf1 = newton(f1S, 0.9, 10 ** -5, 10 ** -5, x)
+resultsf2 = newton(f2S, 3.5, 10 ** -5, 10 ** -5, x)
+resultsf3 = newton(f3S, 4.0, 10 ** -5, 10 ** -5, x)
+
+print("\n\nResultados newton")
+print(f'Raiz encontrada de f1: {resultsf1[0][-1]}')
+print(f'Raiz encontrada de f2: {resultsf2[0][-1]}')
+print(f'Raiz encontrada de f3: {resultsf3[0][-1]}')
+
+print(f'Iteraciones de f1: {resultsf1[1]}')
+print(f'Iteraciones de f2: {resultsf2[1]}')
+print(f'Iteraciones de f3: {resultsf3[1]}')
+
+print(f'f1(raiz encontrada) = : {f1SL(resultsf1[0][-1])}')
+print(f'f2(raiz encontrada) = : {f2SL(resultsf2[0][-1])}')
+print(f'f3(raiz encontrada) = : {f3SL(resultsf3[0][-1])}')
+# secante del punto 5
+
+
+def secante(fxraw, x0, x1, tolx, tolf, var):
+    raices = []
+    fx = lambdify(var, fxraw)
+    continuar = True
+    iteraciones = 1
+    while continuar:
+        x2 = x1 - ((fx(x1) * (x1 - x0)) / (fx(x1) - fx(x0)))
+        raices.append(x2)
+        continuar = (len(raices) == 1 or abs(raices[-1] - raices[-2]) > tolx) and abs(fx(x2)) > tolf
+        iteraciones += 1
+        x0 = x1
+        x1 = x2
+
+    return raices, iteraciones
+
+
+resultsf1 = secante(f1S, 0.85, 0.9, 10 ** -5, 10 ** -5, x)
+resultsf2 = secante(f2S, 3.45, 3.5, 10 ** -5, 10 ** -5, x)
+resultsf3 = secante(f3S, 3.95, 4.0, 10 ** -5, 10 ** -5, x)
+
+print("\n\nResultados secante")
+print(f'Raiz encontrada de f1: {resultsf1[0][-1]}')
+print(f'Raiz encontrada de f2: {resultsf2[0][-1]}')
+print(f'Raiz encontrada de f3: {resultsf3[0][-1]}')
+
+print(f'Iteraciones de f1: {resultsf1[1]}')
+print(f'Iteraciones de f2: {resultsf2[1]}')
+print(f'Iteraciones de f3: {resultsf3[1]}')
+
+print(f'f1(raiz encontrada) = : {f1SL(resultsf1[0][-1])}')
+print(f'f2(raiz encontrada) = : {f2SL(resultsf2[0][-1])}')
+print(f'f3(raiz encontrada) = : {f3SL(resultsf3[0][-1])}')
+
+
