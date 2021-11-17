@@ -1,4 +1,5 @@
 ##pregunta 1 biseccion
+import numpy as np
 def f1(x):
     return -(np.sqrt(3.0 * x) ** (2.0 / 5.0)) + (x ** 3.0) * np.cos(3.0 * x) + 4.0 * (x ** 2) - 7
 
@@ -61,30 +62,29 @@ print(f'Raices: {results[0]}')
 
 ##punto fijo
 import numpy as np
+def f1(x):
+    return -(np.sqrt(3.0 * x) ** (2.0 / 5.0)) + (x ** 3.0) * np.cos(3.0 * x) + 4.0 * (x ** 2) - 7
+
 def g1(x):
     return ((1.0 / 4.0) * (np.sqrt(3 * x) ** (2.0 / 5.0) - (x ** 3.0) * np.cos(3.0 * x) + 7)) ** (0.5)
 
 
-x0 = 1
-x1 = 2
-tolx = 10 ** -5
-tolf = 10 ** -5
-x2_pre = x1
-iter_num = 0
-
-while 1:
-    iter_num += 1
-    x2 = g1(x1)
-    if np.abs(f1(x2)) <= tolf:
-        break
-    if np.abs(x2 - x2_pre) <= tolx:
-        break
-    x1 = x2
-    x2_pre = x2
+def puntofijo(fx, gx, x1, tolx, tolf):
+    raices = []
+    iteraciones = 0
+    raices.append(gx(x1))
+    continuar = True
+    while continuar:
+        raices.append(gx(raices[-1]))
+        continuar = abs(raices[-2] - raices[-1]) > tolx and abs(fx(raices[-1])) > tolf
+        iteraciones += 1
+    return raices, iteraciones
 
 print("Punto fijo")
-print("x2= ", x2)
-print("iteraciones= ", iter_num)
+results = puntofijo(f1, g1, 2, 1e-5, 1e-5)
+print("x2= ", results[0][-1])
+print("iteraciones= ", results[1])
+print("Todas las raices: ", results[0])
 
 ##pergunta 4 newton
 from sympy import *
