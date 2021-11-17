@@ -54,42 +54,50 @@ plt.plot(x_axs, y_axs)
 plt.ylim(-5, 2.5)
 plt.show()
 printout = True
-
-idx = 1
-for gx in [g1L, g2L, g3L]:
-    x_axs = np.linspace(-8, 10, 1000)
-    y_axs = gx(x_axs)
-    plt.plot(x_axs, y_axs)
-    plt.title("Ecuacion g" + str(idx))
-    plt.ylim(-4, 10)
-    plt.show()
-    printout = True
-    idx += 1
+print("\n\nResultados de la Ecuacion 2 del enunciado: \n")
 resultsexp1 = puntofijo(f1L, g1L, 2, 1e-5, 1e-5)
-x_axs = np.linspace(-8, 10, 1000)
-y_axs = g1L(x_axs)
-plt.plot(x_axs, y_axs)
-plt.plot(resultsexp1[2], resultsexp1[3], "ro")
-plt.title("Ecuacion g1")
-plt.ylim(-4, 10)
-plt.show()
+# resultsexp2 = puntofijo(f1L, g2L, 2, 1e-5, 1e-5)
+print("\n\n*La Ecuacion 3 del enunciado no converge, por lo cual no se puede encontrar una raiz con ella.*\n")
+
+print("\n\nResultados de la Ecuacion 4 del enunciado: \n")
+resultsexp3 = puntofijo(f1L, g3L, 2, 1e-5, 1e-5)
 
 #
-# resultsexp2 = puntofijo(f1L, g2L, 2, 1e-5, 1e-5)
+# idx = 1
+# for gx in [g1L, g2L, g3L]:
+#     x_axs = np.linspace(-8, 10, 1000)
+#     y_axs = gx(x_axs)
+#     plt.plot(x_axs, y_axs)
+#     plt.title("Ecuacion g" + str(idx))
+#     plt.ylim(-4, 10)
+#     plt.show()
+#     printout = True
+#     idx += 1
+# resultsexp1 = puntofijo(f1L, g1L, 2, 1e-5, 1e-5)
 # x_axs = np.linspace(-8, 10, 1000)
-# y_axs = g2L(x_axs)
+# y_axs = g1L(x_axs)
 # plt.plot(x_axs, y_axs)
-# plt.plot(resultsexp2[2], resultsexp2[3], "ro--")
-# plt.title("Ecuacion g2")
+# plt.plot(resultsexp1[2], resultsexp1[3], "ro")
+# plt.title("Ecuacion g1")
 # plt.ylim(-4, 10)
 # plt.show()
-
-
-resultsexp3 = puntofijo(f1L, g3L, 2, 1e-5, 1e-5)
-x_axs = np.linspace(-8, 10, 1000)
-y_axs = g3L(x_axs)
-plt.plot(x_axs, y_axs)
-plt.plot(resultsexp3[2], resultsexp3[3], "ro--")
-plt.title("Ecuacion g3")
-plt.ylim(-4, 10)
-plt.show()
+#
+# #
+# # resultsexp2 = puntofijo(f1L, g2L, 2, 1e-5, 1e-5)
+# # x_axs = np.linspace(-8, 10, 1000)
+# # y_axs = g2L(x_axs)
+# # plt.plot(x_axs, y_axs)
+# # plt.plot(resultsexp2[2], resultsexp2[3], "ro--")
+# # plt.title("Ecuacion g2")
+# # plt.ylim(-4, 10)
+# # plt.show()
+#
+#
+# resultsexp3 = puntofijo(f1L, g3L, 2, 1e-5, 1e-5)
+# x_axs = np.linspace(-8, 10, 1000)
+# y_axs = g3L(x_axs)
+# plt.plot(x_axs, y_axs)
+# plt.plot(resultsexp3[2], resultsexp3[3], "ro--")
+# plt.title("Ecuacion g3")
+# plt.ylim(-4, 10)
+# plt.show()
